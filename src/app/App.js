@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+
+import Animals from '../components/Animals/Animals';
+import AnimalCard from '../components/AnimalCard/AnimalCard';
+import NewAnimal from '../components/NewAnimal/NewAnimal';
 import './App.css';
 
 class App extends Component {
-  render() {
+  render () {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <button className='btn btn-info'>Allo!</button>
+        <div className='col-xs-12 col-md-6'>
+          <Animals>
+            <AnimalCard></AnimalCard>
+          </Animals>
+        </div>
+        <div className='col-xs-12 col-md-6'>
+          <NewAnimal />
+        </div>
       </div>
     );
   }
