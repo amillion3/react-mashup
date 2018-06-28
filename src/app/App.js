@@ -6,6 +6,12 @@ import NewAnimal from '../components/NewAnimal/NewAnimal';
 import './App.css';
 
 class App extends Component {
+  state = {
+    animals: [],
+  }
+
+
+
   render () {
     return (
       <div className="App">
