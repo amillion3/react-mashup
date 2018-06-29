@@ -1,24 +1,33 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import Animals from '../components/Animals/Animals';
 import AnimalCard from '../components/AnimalCard/AnimalCard';
 import NewAnimal from '../components/NewAnimal/NewAnimal';
+import connection from '../firebaseRequests/connection';
+import getAnimalsRequest from '../firebaseRequests/animalsRequest';
 import './App.css';
 
-class App extends Component {
+class App extends React.Component {
   state = {
     animals: [],
   }
 
-
+  componentDidMount () {
+    connection();
+    getAnimalsRequest.getAnimalsRequest()
+      .then(animals => {
+        this.setState({animals});
+        ;
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
 
   render () {
     return (
       <div className="App">
         <div className='col-xs-12 col-md-6'>
-          <Animals>
-            <AnimalCard></AnimalCard>
-          </Animals>
+          <AnimalCard animals={this.state.animals}/>
         </div>
         <div className='col-xs-12 col-md-6'>
           <NewAnimal />

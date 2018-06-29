@@ -6,12 +6,13 @@ const getAnimalsRequest = () => {
     axios.get(`${constants.firebaseConfig.databaseURL}/mashups.json`)
       .then(results => {
         const animales = [];
-        if(results.data !== null) {
+        if (results.data !== null) {
           Object.keys(results.data).forEach(key => {
             results.data[key].id = key;
             animales.push(results.data[key]);
           });
         }
+        console.error(animales);
         resolve(animales);
       })
       .catch(err => {
