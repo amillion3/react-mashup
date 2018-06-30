@@ -12,7 +12,6 @@ const getAnimalsRequest = () => {
             animales.push(results.data[key]);
           });
         }
-        console.error(animales);
         resolve(animales);
       })
       .catch(err => {
