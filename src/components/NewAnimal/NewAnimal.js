@@ -6,19 +6,30 @@ import './NewAnimal.css';
 class NewAnimal extends React.Component {
   constructor (props) {
     super(props);
-    this.state = {newName: ''};
+    this.state = {
+      inputName: '',
+      inputUrl: '',
+      inputDesc: '',
+    };
 
-    this.handleChange = this.handleChange().bind(this);
-    this.handleSubmit = this.handleSubmit().bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange (e) {
-    this.setState({newName: e.target.value});
+  handleInputChange (e) {
+    const target = e.target;
+    const value = target.value;
+    const name = target.name;
+    this.setState({
+      [name]: value,
+    });
+    console.error(this);
   }
 
   handleSubmit (e) {
     e.preventDefault();
-    console.error('submitted: ', this.state.value);
+    // e.stopPropagation();
+    console.error('submitted: ', this.state);
   }
 
   newAnimalClick = e => {
@@ -33,26 +44,30 @@ class NewAnimal extends React.Component {
     return (
       <div className='NewAnimal'>
         <h2>Add New Animal</h2>
-        <form>
-          <FormGroup controlId="formBasicText" onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit}>
+          <FormGroup controlId="formBasicText">
             <ControlLabel>Name:</ControlLabel>
             <FormControl type="text" placeholder="Enter text"
+              name='inputName'
               value={this.state.newName}
-              // onChange={this.handleChange}
+              onChange={this.handleInputChange}
             />
             <ControlLabel>Image URL:</ControlLabel>
             <FormControl type="text" placeholder="Enter URL"
+              name='inputUrl'
               value={this.state.newUrl}
-              // onChange={this.handleChange}
+              onChange={this.handleInputChange}
             />
             <FormGroup controlId="formControlsTextarea">
               <ControlLabel>Description</ControlLabel>
               <FormControl
+                name='inputDesc'
                 componentClass="textarea"
                 placeholder="Please describe the animal."
-                value={this.state.newDesc} />
+                value={this.state.newDesc}
+                onChange={this.handleInputChange} />
             </FormGroup>
-            <Button type='submit' onClick={this.newAnimalClick}>Submit</Button>
+            <Button type='submit'>Submit</Button>
 
           </FormGroup>
         </form>
