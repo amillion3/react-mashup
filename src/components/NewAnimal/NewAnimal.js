@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 
 import './NewAnimal.css';
 
+// default object schema
 const defaultAnimal = {
-  inputName: '',
-  inputUrl: '',
-  inputDesc: '',
+  name: '',
+  imgUrl: '',
+  description: '',
 };
 class NewAnimal extends React.Component {
   static propTypes = {
@@ -18,32 +19,50 @@ class NewAnimal extends React.Component {
   }
 
   formFieldState = (name, e) => {
+    // takes in two values, name (key of the object)
+    // and event (used to capture last input)
+    // |||This is a 'on the fly update' as opposed to
+    //      just grabbing the text when user hits submit
     const tempAnimal = {...this.state.newAnimal};
+    // tempAnimal is now a copy of the existing this.state.newAnimal
     tempAnimal[name] = e.target.value;
+    // new character is added to the appropriate key
+    // user types c, now 'c'
+    // user types a, now 'ca'
+    // user types t, now 'cat'
     this.setState({newAnimal: tempAnimal});
+    // set the state to the newly updated value (IE, 'cat')
   }
 
   nameChange = e => {
-    this.formFieldState('inputName', e);
+    // key typed in the 'name' input
+    this.formFieldState('name', e);
   }
   urlChange = e => {
-    this.formFieldState('inputUrl', e);
+    // key typed in the 'imgUrl' input
+    this.formFieldState('imgUrl', e);
   }
   descChange = e => {
-    this.formFieldState('inputDesc', e);
+    // key typed in the 'description' input
+    this.formFieldState('description', e);
   }
 
   formSubmit = e => {
     const {onSubmit} = this.props;
+    // shorthand for this.props.onSubmit, a function
     const {newAnimal} = this.state;
+    // shorthand for this.state.newAnimal, an object
     e.preventDefault();
     if (
-      newAnimal.inputName &&
-      newAnimal.inputUrl &&
-      newAnimal.inputDesc
+      newAnimal.name &&
+      newAnimal.imgUrl &&
+      newAnimal.description
+      // makes sure each field is populated
     ) {
       onSubmit(this.state.newAnimal);
+      // ?
       this.setState({newAnimal: defaultAnimal});
+      // setState with the default (blank) values
     } else {
       alert('Please fill out all the input fields');
     }
@@ -57,42 +76,42 @@ class NewAnimal extends React.Component {
         <form onSubmit={this.formSubmit}>
           <div className='row'>
             <fieldset className='col-xs-10 col-xs-offset-1'>
-              <label htmlFor='inputName'>Name:</label>
+              <label htmlFor='name'>Name:</label>
               <br />
               <input
                 className='col-xs-12'
                 type='text'
-                id='inputName'
+                id='name'
                 placeholder='Leo the Lion'
-                value={newAnimal.inputName}
+                value={newAnimal.name}
                 onChange={this.nameChange}
               />
             </fieldset>
           </div>
           <div className='row'>
             <fieldset className='col-xs-10 col-xs-offset-1'>
-              <label htmlFor='inputUrl'>Image Link:</label>
+              <label htmlFor='imgUrl'>Image Link:</label>
               <br />
               <input
                 className='col-xs-12'
                 type='text'
-                id='inputUrl'
+                id='imgUrl'
                 placeholder='http://www.coolanimalpicture.com/animal1.jpg'
-                value={newAnimal.inputUrl}
+                value={newAnimal.imgUrl}
                 onChange={this.urlChange}
               />
             </fieldset>
           </div>
           <div className='row'>
             <fieldset className='col-xs-10 col-xs-offset-1'>
-              <label htmlFor='inputDesc'>Description:</label>
+              <label htmlFor='description'>Description:</label>
               <br />
               <input
                 className='col-xs-12'
                 type='text'
-                id='inputDesc'
+                id='description'
                 placeholder='If you notice this notice, you will notice that this notice is not worth noticing.'
-                value={newAnimal.inputDesc}
+                value={newAnimal.description}
                 onChange={this.descChange}
               />
             </fieldset>
