@@ -44,7 +44,9 @@ class App extends React.Component {
           <AnimalCard animals={this.state.animals}/>
         </div>
         <div className='col-xs-12 col-md-6'>
-          <NewAnimal />
+          <NewAnimal
+            onSubmit={this.formSubmitEvent}
+          />
         </div>
       </div>
     );
