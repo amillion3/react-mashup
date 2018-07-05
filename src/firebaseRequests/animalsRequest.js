@@ -12,8 +12,20 @@ const getAnimalsRequest = () => {
             animales.push(results.data[key]);
           });
         }
-        console.error(animales);
         resolve(animales);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
+const newAnimalRequest = inputAnimal => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(`${constants.firebaseConfig.databaseURL}/mashups.json`, inputAnimal)
+      .then(res => {
+        resolve(res.data);
       })
       .catch(err => {
         reject(err);
@@ -23,4 +35,5 @@ const getAnimalsRequest = () => {
 
 export default {
   getAnimalsRequest,
+  newAnimalRequest,
 };
